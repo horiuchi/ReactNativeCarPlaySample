@@ -73,31 +73,7 @@ PODS:
   - fmt (6.2.1)
   - glog (0.3.5)
   - libevent (2.1.12)
-  - Mapbox-iOS-SDK (6.3.0):
-    - MapboxMobileEvents (~> 0.10.4)
-  - MapboxAccounts (2.3.1)
-  - MapboxCommon (9.2.0)
-  - MapboxCoreNavigation (1.3.0):
-    - MapboxAccounts (~> 2.3.0)
-    - MapboxDirections (~> 1.2.0)
-    - MapboxMobileEvents (~> 0.10.2)
-    - MapboxNavigationNative (~> 31.0)
-    - Turf (~> 1.0)
-  - MapboxDirections (1.2.0):
-    - Polyline (~> 5.0)
-    - Turf (~> 1.0)
-  - MapboxMobileEvents (0.10.11)
-  - MapboxNavigation (1.3.0):
-    - Mapbox-iOS-SDK (~> 6.0)
-    - MapboxCoreNavigation (= 1.3.0)
-    - MapboxMobileEvents (~> 0.10.2)
-    - MapboxSpeech (~> 1.0)
-    - Solar (~> 2.1)
-  - MapboxNavigationNative (31.0.1):
-    - MapboxCommon (= 9.2.0)
-  - MapboxSpeech (1.0.0)
   - OpenSSL-Universal (1.1.180)
-  - Polyline (5.0.2)
   - RCT-Folly (2021.04.26.00):
     - boost-for-react-native
     - DoubleConversion
@@ -295,9 +271,6 @@ PODS:
   - React-jsinspector (0.65.1)
   - react-native-carplay (2.0.0):
     - React
-  - react-native-mapbox-navigation (1.1.0):
-    - MapboxNavigation (~> 1.3.0)
-    - React-Core
   - react-native-safe-area-context (3.3.2):
     - React-Core
   - React-perflogger (0.65.1)
@@ -368,7 +341,7 @@ PODS:
     - React
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNReanimated (2.2.0):
+  - RNReanimated (2.2.1):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -397,11 +370,9 @@ PODS:
     - React-RCTVibration
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.6.0):
+  - RNScreens (3.7.0):
     - React-Core
     - React-RCTImage
-  - Solar (2.1.0)
-  - Turf (1.2.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -446,7 +417,6 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-carplay (from `../node_modules/react-native-carplay`)
-  - "react-native-mapbox-navigation (from `../node_modules/@homee/react-native-mapbox-navigation`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -481,19 +451,7 @@ SPEC REPOS:
     - FlipperKit
     - fmt
     - libevent
-    - Mapbox-iOS-SDK
-    - MapboxAccounts
-    - MapboxCommon
-    - MapboxCoreNavigation
-    - MapboxDirections
-    - MapboxMobileEvents
-    - MapboxNavigation
-    - MapboxNavigationNative
-    - MapboxSpeech
     - OpenSSL-Universal
-    - Polyline
-    - Solar
-    - Turf
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -529,8 +487,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-carplay:
     :path: "../node_modules/react-native-carplay"
-  react-native-mapbox-navigation:
-    :path: "../node_modules/@homee/react-native-mapbox-navigation"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -586,17 +542,7 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 5337263514dd6f09803962437687240c5dc39aa4
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  Mapbox-iOS-SDK: 2563ed87ead6ec08f1c2090873977b8a7be335a8
-  MapboxAccounts: e40ef575df5d8b7ef33d0504ff2d393f4fde0455
-  MapboxCommon: 2c4ef00c10cba35302835423f4d63c6f3dea4bc4
-  MapboxCoreNavigation: 77b3db040855684b0f2cd9064e5d9bd51c9f5739
-  MapboxDirections: 383df0cd65784897c2269750a42d9654c832f0ce
-  MapboxMobileEvents: 1176afebbeca86806614a3dc409840bc02a3dd89
-  MapboxNavigation: 222274f1330cf9336529ade519a14df4042dfd9f
-  MapboxNavigationNative: 0bc54a7cf20a892a96eca07e1f05776f496491f5
-  MapboxSpeech: 4b3aea42e35d056fae1d7ad847a9fc0f412d911e
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
-  Polyline: fce41d72e1146c41c6d081f7656827226f643dff
   RCT-Folly: 0dd9e1eb86348ecab5ba76f910b56f4b5fef3c46
   RCTRequired: 6cf071ab2adfd769014b3d94373744ee6e789530
   RCTTypeSafety: b829c59453478bb5b02487b8de3336386ab93ab1
@@ -609,7 +555,6 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 43f2542aed3c26e42175b339f8d37fe3dd683765
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
   react-native-carplay: 4105326f4eb8f953f21546bad9a6afb307e995d0
-  react-native-mapbox-navigation: cf8c60d72039a19bedd3f74d0f5ecab035dbbe53
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
   React-RCTActionSheet: 7f3fa0855c346aa5d7c60f9ced16e067db6d29fa
@@ -625,13 +570,11 @@ SPEC CHECKSUMS:
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNReanimated: 7245c2ff6dca3b42b6f77e800adf85ce68532759
-  RNScreens: eb0dfb2d6b21d2d7f980ad46b14eb306d2f1062e
-  Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
-  Turf: aaa060138b11a8e979a19e6d81091d156a31bc58
+  RNReanimated: d29057cf85e771be4f0180ba1d00a7185e423a7d
+  RNScreens: 2a71d74b4e530f051f5684c8111d7591176722cf
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: e14f96a68b75573bc0d262271bde773fc0d35734
+PODFILE CHECKSUM: 36587e7e7ad65b7d13c8389faaf24a3f04dba559
 
 COCOAPODS: 1.11.0

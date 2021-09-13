@@ -5,12 +5,8 @@ import {CarPlay, ListTemplate} from 'react-native-carplay';
 import {ListItem} from 'react-native-carplay/lib/interfaces/ListItem';
 import {getDistanceString} from '../utils/distance';
 import {useFetch} from '../utils/useFetch';
-
-declare module 'react-native-carplay/lib/interfaces/ListItem' {
-  export interface ListItem {
-    id: string;
-  }
-}
+import {Details} from './Details';
+import {BukItem, getStatusImage} from './types';
 
 const title = 'タイムズの駐車場';
 const e = 1e-2; // about 1km
@@ -21,21 +17,8 @@ export interface StationsProps {
   lon: number;
 }
 
-function getIconImage(icon: 0 | 1 | 2 | 3 | 4) {
-  switch (icon) {
-    case 0:
-      return require('../images/status-0.svg');
-    case 1:
-      return require('../images/status-1.svg');
-    case 2:
-      return require('../images/status-2.svg');
-    default:
-      return require('../images/status-3.svg');
-  }
-}
-
 export const Stations: React.VFC<StationsProps> = ({lat, lon}) => {
-  const [selected, setSelected] = useState<string>();
+  const [selected, setSelected] = useState<BukItem>();
 
   useEffect(() => {
     const listTemplate = new ListTemplate({
@@ -43,8 +26,10 @@ export const Stations: React.VFC<StationsProps> = ({lat, lon}) => {
       sections: [],
     });
 
+    console.log('Stations.setRootTemplate: 1');
     CarPlay.setRootTemplate(listTemplate);
     return () => {
+      console.log('Stations.popToRootTemplate: 1');
       CarPlay.popToRootTemplate(true);
     };
   }, []);
@@ -64,55 +49,74 @@ export const Stations: React.VFC<StationsProps> = ({lat, lon}) => {
       },
     });
   }, [lat, lon]);
-  const parseData = useCallback(
-    async (res: Response): Promise<ListItem[]> => {
-      const json = await res.json();
-      const result: ListItem[] = [];
-      if (Array.isArray(json?.value?.bukList)) {
-        for (const item of json.value.bukList) {
-          result.push({
-            id: item.no,
-            image: getIconImage(item.icon),
-            text: item.name,
-            detailText: getDistanceString(lat, lon, item.lat, item.lon),
-            showsDisclosureIndicator: true,
-          });
-        }
-      }
-      return result;
-    },
-    [lat, lon],
-  );
+  const parseData = useCallback(async (res: Response): Promise<BukItem[]> => {
+    const json = await res.json();
+    if (Array.isArray(json?.value?.bukList)) {
+      return json.value.bukList;
+    }
+    return [];
+  }, []);
   const {loading, error, data} = useFetch(url, opts, parseData);
   useEffect(() => {
     if (data == null) {
       return;
     }
 
+    function convert(item: BukItem): ListItem {
+      return {
+        image: getStatusImage(item.icon),
+        text: item.name,
+        detailText: getDistanceString(lat, lon, item.lat, item.lon),
+        showsDisclosureIndicator: true,
+      };
+    }
+    const available: BukItem[] = [];
+    const full: BukItem[] = [];
+    for (const item of data) {
+      if (item.icon === 2) {
+        full.push(item);
+      } else {
+        available.push(item);
+      }
+    }
+
     const listTemplate = new ListTemplate({
       title,
       sections: [
         {
-          items: data,
+          header: '空きあり',
+          items: available.map(convert),
+        },
+        {
+          header: '満車',
+          items: full.map(convert),
         },
       ],
-      onItemSelect: async e => {
-        setSelected(data[e.index].id);
+      onItemSelect: async ev => {
+        const index = ev.index;
+        const item =
+          index >= available.length
+            ? full[index - available.length]
+            : available[index];
+        setSelected(item);
       },
     });
 
+    console.log('Stations.setRootTemplate: 2');
     CarPlay.setRootTemplate(listTemplate);
     return () => {
+      console.log('Stations.popToRootTemplate: 2');
       CarPlay.popToRootTemplate(true);
     };
-  }, [data]);
+  }, [data, lat, lon]);
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Loading: {loading}</Text>
       <Text>Error: {error}</Text>
       <Text>Data Count: {data == null ? 0 : data.length}</Text>
-      <Text>Selected: {selected}</Text>
+      <Text>Selected: {selected?.no}</Text>
+      {selected == null ? null : <Details item={selected} />}
     </View>
   );
 };

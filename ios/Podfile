@@ -13,15 +13,12 @@ target 'CarPlayProject' do
     :hermes_enabled => false
   )
 
-  pod 'react-native-carplay', :path => '../node_modules/react-native-carplay'
-
   target 'CarPlayProjectTests' do
     inherit! :complete
     # Pods for testing
   end
 
   pre_install do |installer|
-    $RNMBNAV.pre_install(installer)
   end
 
   # Enables Flipper.
@@ -31,7 +28,6 @@ target 'CarPlayProject' do
   use_flipper!()
 
   post_install do |installer|
-    $RNMBNAV.post_install(installer)
     react_native_post_install(installer)
   end
 end
